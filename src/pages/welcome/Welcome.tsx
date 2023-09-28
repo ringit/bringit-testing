@@ -1,7 +1,7 @@
 import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import {
-  BookmarkSquareIcon,
+  CommandLineIcon,
   RssIcon,
   CalculatorIcon,
 } from "@heroicons/react/24/solid";
@@ -18,10 +18,11 @@ const links = [
     icon: CalculatorIcon,
   },
   {
-    name: "Guides",
-    href: "#",
-    description: "Installation guides that cover popular setups.",
-    icon: BookmarkSquareIcon,
+    name: "Github repository",
+    href: "https://github.com/ringit/bringit-testing",
+    description: "Check it out, clone it and try it out!",
+    icon: CommandLineIcon,
+    linkAttr: { target: "_blank", rel: "noopener noreferrer" },
   },
   {
     name: "Testing library",
