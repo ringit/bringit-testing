@@ -11,3 +11,5 @@ Under "Examples" you can see and try out the pieces we will be writing tests to
 ## Testing
 
 All exercises are under \_\_test\_\_ directory with description on what to do.
+
+Solutions can be found under **solutions** branch

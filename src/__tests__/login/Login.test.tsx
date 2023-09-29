@@ -29,6 +29,8 @@ import { faker } from "@faker-js/faker";
 //
 // Having multiple test where data with same structure is needed it would be nice to create a helper function that provides these values.
 // For this example a good naming would be buildLoginForm which return email and password.
+//
+// After these test we could remove LoginForm.test.tsx completely since it does not hold any value anymore. Tests here are considered integration tests and they cover the logic in LoginForm
 
 const server = setupServer(...handlers);
 
