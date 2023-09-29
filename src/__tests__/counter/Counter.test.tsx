@@ -27,6 +27,41 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 // cleanup by removing the div from the page (div.remove())
 // If you don't cleanup, then it could impact other tests and/or cause a memory leak
 
-beforeEach(() => {});
+beforeEach(() => {
+  document.body.innerHTML = "";
+});
 
-test("counter increments and decrements", () => {});
+test("counter increments and decrements", () => {
+  const div = document.createElement("div");
+  document.body.append(div);
+
+  const root = createRoot(div);
+  act(() => root.render(<Counter />));
+
+  const [decrement, increment] = document.body.querySelectorAll("button");
+  const count = (div.firstChild as HTMLElement).querySelector("p")!;
+
+  expect(count.textContent).toBe("Count: 0");
+  act(() => increment.click());
+  expect(count.textContent).toBe("Count: 1");
+  act(() => decrement.click());
+  expect(count.textContent).toBe("Count: 0");
+});
+
+test("counter increments and decrements", () => {
+  const div = document.createElement("div");
+  document.body.append(div);
+
+  const root = createRoot(div);
+  act(() => root.render(<Counter />));
+  console.log(document.body.innerHTML);
+
+  const [decrement, increment] = document.body.querySelectorAll("button");
+  const count = (div.firstChild as HTMLElement).querySelector("p")!;
+
+  expect(count.textContent).toBe("Count: 0");
+  act(() => increment.click());
+  expect(count.textContent).toBe("Count: 1");
+  act(() => decrement.click());
+  expect(count.textContent).toBe("Count: 0");
+});

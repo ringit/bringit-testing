@@ -18,4 +18,28 @@ import { faker } from "@faker-js/faker";
 //
 // Change the test so that email and password are always different string using faker-js ( faker.internet.email(), faker.internet.password() )
 
-test("Submitting form calls onSubmit with email and password", async () => {});
+test("Submitting form calls onSubmit with email and password", async () => {
+  const handleSubmit = vi.fn();
+  const { user } = renderWithSetup(<LoginForm onSubmit={handleSubmit} />);
+  const email = faker.internet.email();
+  const password = faker.internet.password();
+
+  const submit = screen.getByRole("button", {
+    name: /submit/i,
+  });
+
+  await user.type(
+    screen.getByRole("textbox", {
+      name: /email/i,
+    }),
+    email
+  );
+  await user.type(screen.getByLabelText(/password/i), password);
+
+  await user.click(submit);
+
+  expect(handleSubmit.mock.calls[0][0]).toStrictEqual({
+    email,
+    password,
+  });
+});

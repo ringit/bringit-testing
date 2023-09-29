@@ -10,4 +10,11 @@ import { expect, test } from "vitest";
 // rerender <Button> and change loading to true ( rerender )
 // assert that textContent is "Loading..."
 
-test("re render with loading state", () => {});
+test("re render with loading state", () => {
+  const { rerender } = render(<Button loading={false}>Bringit</Button>);
+
+  const button = screen.getByRole("button");
+  expect(button.textContent).toBe("Bringit");
+  rerender(<Button loading={true}>Bringit</Button>);
+  expect(button.textContent).toBe("Loading...");
+});

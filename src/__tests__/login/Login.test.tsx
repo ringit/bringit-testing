@@ -40,6 +40,46 @@ afterAll(() => {
   server.close();
 });
 
-test("user can login", async () => {});
+test("user can login", async () => {
+  const { user } = renderWithSetup(<Login />);
+  const email = faker.internet.email();
+  const password = faker.internet.password();
 
-test("user can not login", async () => {});
+  const submit = screen.getByRole("button", {
+    name: /submit/i,
+  });
+
+  await user.type(
+    screen.getByRole("textbox", {
+      name: /email/i,
+    }),
+    email
+  );
+  await user.type(screen.getByLabelText(/password/i), password);
+  await user.click(submit);
+
+  const welcomeText = await screen.findByText(`Welcome ${email}`);
+  expect(welcomeText).not.toBeNull();
+});
+
+test("user can not login", async () => {
+  const { user } = renderWithSetup(<Login />);
+  const email = faker.internet.email();
+  const password = faker.internet.password();
+
+  const submit = screen.getByRole("button", {
+    name: /submit/i,
+  });
+
+  await user.type(
+    screen.getByRole("textbox", {
+      name: /email/i,
+    }),
+    email
+  );
+  await user.click(submit);
+
+  const errorText = await screen.findByRole("alert");
+
+  expect(errorText.textContent).toBe("Wrong username or password");
+});

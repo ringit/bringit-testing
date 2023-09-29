@@ -18,23 +18,21 @@ import { userEvent } from "@testing-library/user-event";
 //
 // clean the test file by removing old cleanup logic since testing library handles it all
 
-beforeEach(() => {
-  document.body.innerHTML = "";
-});
-
 test("counter increments and decrements", async () => {
-  const div = document.createElement("div");
-  document.body.append(div);
+  const user = userEvent.setup();
+  render(<Counter />);
 
-  const root = createRoot(div);
-  act(() => root.render(<Counter />));
-
-  const [decrement, increment] = document.body.querySelectorAll("button");
-  const count = (div.firstChild as HTMLElement).querySelector("p")!;
+  const decrement = screen.getByRole("button", {
+    name: /decrement/i,
+  });
+  const increment = screen.getByRole("button", {
+    name: /increment/i,
+  });
+  const count = screen.getByText("Count: 0");
 
   expect(count.textContent).toBe("Count: 0");
-  act(() => increment.click());
+  await user.click(increment);
   expect(count.textContent).toBe("Count: 1");
-  act(() => decrement.click());
+  await user.click(decrement);
   expect(count.textContent).toBe("Count: 0");
 });
